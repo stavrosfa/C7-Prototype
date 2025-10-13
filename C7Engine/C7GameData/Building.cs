@@ -18,7 +18,7 @@ namespace C7GameData {
 		public int populationCost { get; set; } // Will always be equal to 0 in the Civ3 rule set
 
 		// Filled in in SaveGame::ConvertBuildings
-		public Tech requiredTech { get; set; }
+		public Tech? requiredTech { get; set; }
 		public Tech? renderedObsoleteBy;
 
 		public Building requiredBuilding;
@@ -62,6 +62,10 @@ namespace C7GameData {
 
 		SaveBuilding dataSource;
 
+		// TODO: maybe have them as flags? Also figure out if and how this info is in the .biq file
+		public bool hasCultureSpecificTextures;
+		public bool hasEraSpecificTextures;
+
 		public Building(SaveBuilding building, GameData gameData) {
 			dataSource = building;
 
@@ -72,6 +76,9 @@ namespace C7GameData {
 			culturePerTurn = building.culturePerTurn;
 			maintenanceCost = building.maintenanceCost;
 			iconRowIndex = building.iconRowIndex;
+
+			hasCultureSpecificTextures = building.hasCultureSpecificTextures;
+			hasEraSpecificTextures = building.hasEraSpecificTextures;
 
 			if (building.contentFacesInCity < 0) {
 				unhappyFacesInCity = -building.contentFacesInCity;

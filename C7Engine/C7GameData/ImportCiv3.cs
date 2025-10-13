@@ -369,6 +369,8 @@ namespace C7GameData {
 				}
 				civ.traits = LoadCivTraits(race).ToHashSet();
 
+				civ.cultureGroup = (Civilization.CultureGroup)race.CultureGroup;
+
 				// Look up the image for non-barbarian civs.
 				string artName = pediaIcons.GetLeaderArtName(race.CivilopediaEntry);
 				if (artName != null) {

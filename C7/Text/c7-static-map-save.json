@@ -71248,6 +71248,7 @@
       "iconIndex": 79,
       "upgradeTo": "Artillery",
       "unique": {
+		"replace": "Cannon",
         "civilization": "Korea"
       },
       "unproducible": false,
@@ -72476,7 +72477,8 @@
       "iconRowIndex": 0,
       "flags": [
         "isCenterOfEmpire"
-      ]
+      ],
+	  "hasCultureSpecificTextures": true
     },
     {
       "name": "Barracks",
@@ -72488,6 +72490,7 @@
       "combatDefenseBonus": 0,
       "maintenanceCost": 1,
       "iconRowIndex": 1,
+      "hasEraSpecificTextures": true,
       "flags": [
         "veteranGroundUnits"
       ],
@@ -72509,6 +72512,7 @@
       "combatDefenseBonus": 0,
       "maintenanceCost": 1,
       "iconRowIndex": 2,
+      "hasEraSpecificTextures": true,
       "flags": [
         "doublesCityGrowthRate"
       ]
@@ -72526,7 +72530,8 @@
       "iconRowIndex": 3,
       "traits": [
         "religious"
-      ]
+      ],
+	  "hasCultureSpecificTextures": true
     },
     {
       "name": "Marketplace",
@@ -72587,6 +72592,7 @@
       "combatDefenseBonus": 0.5,
       "maintenanceCost": 0,
       "iconRowIndex": 7,
+      "hasCultureSpecificTextures": true,
       "flags": [
         "providesWalls",
         "canOnlyBeBuiltInTowns"
@@ -72631,6 +72637,7 @@
       "combatDefenseBonus": 0,
       "maintenanceCost": 1,
       "iconRowIndex": 9,
+      "hasEraSpecificTextures": true,
       "traits": [
         "commercial"
       ]
@@ -72649,7 +72656,8 @@
       "iconRowIndex": 10,
       "traits": [
         "religious"
-      ]
+      ],
+	  "hasCultureSpecificTextures": true
     },
     {
       "name": "University",
@@ -72663,6 +72671,7 @@
       "combatDefenseBonus": 0,
       "maintenanceCost": 2,
       "iconRowIndex": 11,
+      "hasEraSpecificTextures": true,
       "traits": [
         "scientific"
       ]
@@ -72677,7 +72686,8 @@
       "contentFacesInCity": 2,
       "combatDefenseBonus": 0,
       "maintenanceCost": 2,
-      "iconRowIndex": 12
+      "iconRowIndex": 12,
+      "hasEraSpecificTextures": true
     },
     {
       "name": "Factory",
@@ -72784,6 +72794,7 @@
       "combatDefenseBonus": 0,
       "maintenanceCost": 2,
       "iconRowIndex": 19,
+      "hasEraSpecificTextures": true,
       "flags": [
         "allowsCitySize3"
       ],
@@ -72851,6 +72862,7 @@
       "combatDefenseBonus": 0,
       "maintenanceCost": 0,
       "iconRowIndex": 23,
+      "hasCultureSpecificTextures": true,
       "flags": [
         "mustBeCoastal"
       ],
@@ -72949,6 +72961,7 @@
       "combatDefenseBonus": 0,
       "maintenanceCost": 2,
       "iconRowIndex": 27,
+      "hasEraSpecificTextures": true,
       "traits": [
         "militaristic",
         "commercial"
@@ -72965,6 +72978,7 @@
       "combatDefenseBonus": 0,
       "maintenanceCost": 2,
       "iconRowIndex": 28,
+      "hasEraSpecificTextures": true,
       "flags": [
         "reducesCorruption"
       ]
@@ -74494,6 +74508,7 @@
       "noun": "Barbarians",
       "colorIndex": 0,
       "leaderGender": "male",
+      "cultureGroup": "none",
       "cityNames": [
         "Chanca",
         "Lupaca",
@@ -74579,6 +74594,7 @@
       "leader": "Caesar",
       "colorIndex": 1,
       "leaderGender": "male",
+	  "cultureGroup": "mediterranean",
       "leaderArtFile": "art\\advisors\\CE_all.pcx",
       "cityNames": [
         "Rome",
@@ -74641,6 +74657,7 @@
       "leader": "Cleopatra",
       "colorIndex": 3,
       "leaderGender": "female",
+      "cultureGroup": "mediterranean",
       "leaderArtFile": "art\\advisors\\CL_all.pcx",
       "cityNames": [
         "Thebes",
@@ -74688,6 +74705,7 @@
       "leader": "Alexander",
       "colorIndex": 10,
       "leaderGender": "male",
+	  "cultureGroup": "mediterranean",
       "leaderArtFile": "art\\advisors\\AL_all.pcx",
       "cityNames": [
         "Athens",
@@ -74735,6 +74753,7 @@
       "leader": "Hammurabi",
       "colorIndex": 1,
       "leaderGender": "male",
+	  "cultureGroup": "midEastern",
       "leaderArtFile": "art\\advisors\\HA_all.pcx",
       "cityNames": [
         "Babylon",
@@ -74780,6 +74799,7 @@
       "leader": "Bismarck",
       "colorIndex": 6,
       "leaderGender": "male",
+	  "cultureGroup": "european",
       "leaderArtFile": "art\\advisors\\BS_all.pcx",
       "cityNames": [
         "Berlin",
@@ -74814,6 +74834,7 @@
       "leader": "Catherine",
       "colorIndex": 9,
       "leaderGender": "female",
+	  "cultureGroup": "european",
       "leaderArtFile": "art\\advisors\\CA_all.pcx",
       "cityNames": [
         "Moscow",
@@ -74871,6 +74892,7 @@
       "leader": "Mao",
       "colorIndex": 5,
       "leaderGender": "male",
+	  "cultureGroup": "asian",
       "leaderArtFile": "art\\advisors\\MO_all.pcx",
       "cityNames": [
         "Beijing",
@@ -74907,6 +74929,7 @@
       "leader": "Lincoln",
       "colorIndex": 5,
       "leaderGender": "male",
+      "cultureGroup": "american",
       "leaderArtFile": "art\\advisors\\AB_all.pcx",
       "cityNames": [
         "Washington",
@@ -74965,6 +74988,7 @@
       "leader": "Tokugawa",
       "colorIndex": 4,
       "leaderGender": "male",
+      "cultureGroup": "asian",
       "leaderArtFile": "art\\advisors\\TO_all.pcx",
       "cityNames": [
         "Kyoto",
@@ -75009,6 +75033,7 @@
       "leader": "Joan d\u0027Arc",
       "colorIndex": 7,
       "leaderGender": "female",
+      "cultureGroup": "european",
       "leaderArtFile": "art\\advisors\\JO_all.pcx",
       "cityNames": [
         "Paris",
@@ -75048,6 +75073,7 @@
       "leader": "Gandhi",
       "colorIndex": 8,
       "leaderGender": "male",
+      "cultureGroup": "asian",
       "leaderArtFile": "art\\advisors\\GH_all.pcx",
       "cityNames": [
         "Delhi",
@@ -75083,6 +75109,7 @@
       "leader": "Xerxes",
       "colorIndex": 10,
       "leaderGender": "male",
+      "cultureGroup": "midEastern",
       "leaderArtFile": "art\\advisors\\XE_all.pcx",
       "cityNames": [
         "Persepolis",
@@ -75130,6 +75157,7 @@
       "leader": "Montezuma",
       "colorIndex": 4,
       "leaderGender": "male",
+      "cultureGroup": "american",
       "leaderArtFile": "art\\advisors\\MN_all.pcx",
       "cityNames": [
         "Tenochtitlan",
@@ -75184,6 +75212,7 @@
       "leader": "Shaka",
       "colorIndex": 3,
       "leaderGender": "male",
+      "cultureGroup": "MidEastern",
       "leaderArtFile": "art\\advisors\\ZU_all.pcx",
       "cityNames": [
         "Zimbabwe",
@@ -75218,6 +75247,7 @@
       "leader": "Hiawatha",
       "colorIndex": 8,
       "leaderGender": "male",
+      "cultureGroup": "american",
       "leaderArtFile": "art\\advisors\\HI_all.pcx",
       "cityNames": [
         "Salamanca",
@@ -75265,6 +75295,7 @@
       "leader": "Elizabeth",
       "colorIndex": 2,
       "leaderGender": "female",
+      "cultureGroup": "european",
       "leaderArtFile": "art\\advisors\\LZ_all.pcx",
       "cityNames": [
         "London",
@@ -75312,6 +75343,7 @@
       "leader": "Temujin",
       "colorIndex": 3,
       "leaderGender": "male",
+      "cultureGroup": "asian",
       "leaderArtFile": "art\\advisors\\x_temujin advisor.pcx",
       "cityNames": [
         "Karakorum",
@@ -75360,6 +75392,7 @@
       "leader": "Isabella",
       "colorIndex": 5,
       "leaderGender": "female",
+      "cultureGroup": "european",
       "leaderArtFile": "art\\advisors\\x_isabell advisor.pcx",
       "cityNames": [
         "Madrid",
@@ -75409,6 +75442,7 @@
       "leader": "Ragnar Lodbrok",
       "colorIndex": 8,
       "leaderGender": "male",
+      "cultureGroup": "european",
       "leaderArtFile": "art\\advisors\\x_ragnar advisor.pcx",
       "cityNames": [
         "Trondheim",
@@ -75460,6 +75494,7 @@
       "leader": "Osman",
       "colorIndex": 2,
       "leaderGender": "male",
+      "cultureGroup": "midEastern",
       "leaderArtFile": "art\\advisors\\x_osman advisor.pcx",
       "cityNames": [
         "Istanbul",
@@ -75507,6 +75542,7 @@
       "leader": "Brennus",
       "colorIndex": 4,
       "leaderGender": "male",
+      "cultureGroup": "european",
       "leaderArtFile": "art\\advisors\\x_brennus advisor.pcx",
       "cityNames": [
         "Entremont",
@@ -75555,6 +75591,7 @@
       "leader": "Abu Bakr",
       "colorIndex": 7,
       "leaderGender": "male",
+      "cultureGroup": "midEastern",
       "leaderArtFile": "art\\advisors\\x_abu bakr advisor.pcx",
       "cityNames": [
         "Mecca",
@@ -75601,6 +75638,7 @@
       "leader": "Hannibal",
       "colorIndex": 9,
       "leaderGender": "male",
+      "cultureGroup": "mediterranean",
       "leaderArtFile": "art\\advisors\\x_Hannibal advisor.pcx",
       "cityNames": [
         "Carthage",
@@ -75649,6 +75687,7 @@
       "leader": "Wang Kon",
       "colorIndex": 6,
       "leaderGender": "male",
+      "cultureGroup": "asian",
       "leaderArtFile": "art\\advisors\\x_Wang Kon advisor.pcx",
       "cityNames": [
         "Seoul",
@@ -75697,6 +75736,7 @@
       "leader": "Gilgamesh",
       "colorIndex": 5,
       "leaderGender": "male",
+      "cultureGroup": "midEastern",
       "leaderArtFile": "art\\advisors\\x2_Gilgamesh advisor.pcx",
       "cityNames": [
         "Ur",
@@ -75740,6 +75780,7 @@
       "leader": "Mursilis",
       "colorIndex": 14,
       "leaderGender": "male",
+      "cultureGroup": "midEastern",
       "leaderArtFile": "art\\advisors\\x2_Mursilis advisor.pcx",
       "cityNames": [
         "Hattusas",
@@ -75783,6 +75824,7 @@
       "leader": "William",
       "colorIndex": 2,
       "leaderGender": "male",
+      "cultureGroup": "european",
       "leaderArtFile": "art\\advisors\\x2_William advisor.pcx",
       "cityNames": [
         "Amsterdam",
@@ -75826,6 +75868,7 @@
       "leader": "Henry",
       "colorIndex": 8,
       "leaderGender": "male",
+      "cultureGroup": "european",
       "leaderArtFile": "art\\advisors\\x2_Henry advisor.pcx",
       "cityNames": [
         "Lisbon",
@@ -75880,6 +75923,7 @@
       "leader": "Theodora",
       "colorIndex": 11,
       "leaderGender": "female",
+      "cultureGroup": "mediterranean",
       "leaderArtFile": "art\\advisors\\x2_Theodora advisor.pcx",
       "cityNames": [
         "Constantinople",
@@ -75923,6 +75967,7 @@
       "leader": "Pachacuti",
       "colorIndex": 7,
       "leaderGender": "male",
+      "cultureGroup": "american",
       "leaderArtFile": "art\\advisors\\x2_Pachacuti advisor.pcx",
       "cityNames": [
         "Cuzco",
@@ -75966,6 +76011,7 @@
       "leader": "Smoke-Jaguar",
       "colorIndex": 6,
       "leaderGender": "male",
+      "cultureGroup": "american",
       "leaderArtFile": "art\\advisors\\x2_Smoke-Jaguar_advisor.pcx",
       "cityNames": [
         "Chich\u00E9n Itza",

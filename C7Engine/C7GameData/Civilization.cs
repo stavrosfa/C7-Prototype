@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text.Json.Serialization;
 
 namespace C7GameData {
@@ -23,6 +24,15 @@ namespace C7GameData {
 			Seafaring,
 		}
 
+		public enum CultureGroup {
+			None = -1, // -1 for barbarians
+			American = 0,
+			European = 1,
+			Mediterranean = 2,
+			MidEastern = 3,
+			Asian = 4,
+		}
+
 		public Civilization() { }
 
 		public Civilization(string name) {
@@ -35,6 +45,7 @@ namespace C7GameData {
 		public string leader;
 		public int colorIndex;
 		public Gender leaderGender;
+		public CultureGroup cultureGroup;
 
 		// Like `art\advisors\LZ_all.pcx` for the English.
 		public string leaderArtFile;
@@ -92,6 +103,26 @@ namespace C7GameData {
 			}
 
 			return true;
+		}
+
+		public static string GetCultureGroupFromEnumValue(CultureGroup cultureGroup) {
+			if (cultureGroup == CultureGroup.American) {
+				return "american";
+			}
+			if (cultureGroup == CultureGroup.European) {
+				return "european";
+			}
+			if (cultureGroup == CultureGroup.Mediterranean) {
+				return "mediterranean";
+			}
+			if (cultureGroup == CultureGroup.MidEastern) {
+				return "midEastern";
+			}
+			if (cultureGroup == CultureGroup.Asian) {
+				return "asian";
+			}
+
+			throw new InvalidEnumArgumentException();
 		}
 	}
 
