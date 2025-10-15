@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using C7GameData.Save;
 using C7Engine;
 
@@ -61,10 +62,12 @@ namespace C7GameData {
 		public int iconRowIndex = 0;
 
 		SaveBuilding dataSource;
-
-		// TODO: maybe have them as flags? Also figure out if and how this info is in the .biq file
-		public bool hasCultureSpecificTextures;
-		public bool hasEraSpecificTextures;
+		[JsonIgnore]
+		public SaveBuilding.IconTexture iconTextures;
+		[JsonIgnore]
+		public SaveBuilding.CultureVariationTexture cultureVariationTextures;
+		[JsonIgnore]
+		public SaveBuilding.EraVariationTexture eraVariationTextures;
 
 		public Building(SaveBuilding building, GameData gameData) {
 			dataSource = building;
@@ -77,8 +80,15 @@ namespace C7GameData {
 			maintenanceCost = building.maintenanceCost;
 			iconRowIndex = building.iconRowIndex;
 
-			hasCultureSpecificTextures = building.hasCultureSpecificTextures;
-			hasEraSpecificTextures = building.hasEraSpecificTextures;
+			if (building.iconTextures != null) {
+				iconTextures = building.iconTextures;
+			}
+			if (building.cultureVariationTextures != null) {
+				cultureVariationTextures = building.cultureVariationTextures;
+			}
+			if (building.eraVariationTextures != null) {
+				eraVariationTextures = building.eraVariationTextures;
+			}
 
 			if (building.contentFacesInCity < 0) {
 				unhappyFacesInCity = -building.contentFacesInCity;

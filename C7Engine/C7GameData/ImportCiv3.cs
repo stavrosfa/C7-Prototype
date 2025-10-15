@@ -354,6 +354,20 @@ namespace C7GameData {
 		}
 
 		private void ImportRaces() {
+
+			foreach (ERAS er in biq.Eras) {
+
+				Log.Information("Stavrakas");
+				Log.Information(er.CivilopediaEntry);
+				Log.Information(er.Name);
+				Log.Information(er.Researcher1);
+				Log.Information(er.Researcher2);
+				Log.Information(er.Researcher3);
+				Log.Information(er.Researcher4);
+				Log.Information(er.Researcher5);
+				Log.Information($"{er.NumberOfUsedResearcherNames}");
+			}
+
 			BiqData theBiq = biq.Race is null ? defaultBiq : biq;
 			int i = 0;
 			foreach (RACE race in theBiq.Race) {
@@ -371,6 +385,7 @@ namespace C7GameData {
 
 				civ.cultureGroup = (Civilization.CultureGroup)race.CultureGroup;
 
+				Log.Information($"{civ.name} - {race.CultureGroup} - {civ.cultureGroup}");
 				// Look up the image for non-barbarian civs.
 				string artName = pediaIcons.GetLeaderArtName(race.CivilopediaEntry);
 				if (artName != null) {
@@ -619,6 +634,12 @@ namespace C7GameData {
 
 				var (producible, producibleType) = CityToProducible(city);
 
+				// // if (city.Name == "Warwick") {
+				// 	// Log.Information($"{city.Constructing}");
+				// 	// Log.Information($"{city.ConstructingType}");
+				// 	Log.Information($"{city.Name} produces: {city.Constructing} _ {city.ConstructingType} _ {producibleType} - {producible}");
+				// // }
+
 				SaveCity saveCity = new SaveCity{
 					id = ids.CreateID("city"),
 					owner = owner.id,
@@ -717,6 +738,8 @@ namespace C7GameData {
 		private (string, ProducibleType) CityToProducible(QueryCiv3.Sav.CITY city) {
 			PRTO[] unitPrototypes = biq.Prto ?? defaultBiq.Prto;
 			BiqData theBiq = biq.Bldg is null ? defaultBiq : biq;
+
+			// bool isWealth = city.Constructing == 29;
 
 			return city.ConstructingType switch {
 				0 => ("Worker", ProducibleType.UNIT), // TODO: Wealth production is not implemented yet
@@ -1016,8 +1039,76 @@ namespace C7GameData {
 
 				MapFlagsToLuaFunctions(building);
 
+				if (pediaIcons.buildingNoVariations.Contains($"{bldg.CivilopediaEntry}")) {
+					GetSimpleIconTextures(building, bldg);
+				}
+
+				if (pediaIcons.buildingCustureVariations.Contains($"{bldg.CivilopediaEntry}")) {
+					GetCultureVariationTextures(building, bldg);
+				}
+
+				if (pediaIcons.buildingEraVariations.Contains($"{bldg.CivilopediaEntry}")) {
+					GetEraVariationTextures(building, bldg);
+				}
+
 				save.Buildings.Add(building);
 			}
+		}
+
+		private void GetSimpleIconTextures(SaveBuilding building, BLDG bldg)
+		{
+			building.iconTextures = new SaveBuilding.IconTexture {
+				smallIconTexture = pediaIcons.buildingToCvlpdIconMapping.GetValueOrDefault($"{bldg.CivilopediaEntry}_SMALL"),
+				largeIconTexture = pediaIcons.buildingToCvlpdIconMapping.GetValueOrDefault($"{bldg.CivilopediaEntry}_LARGE"),
+			};
+		}
+
+		private void GetCultureVariationTextures(SaveBuilding building, BLDG bldg)
+		{
+			building.cultureVariationTextures = new SaveBuilding.CultureVariationTexture {
+				american = new SaveBuilding.IconTexture {
+						smallIconTexture = pediaIcons.buildingToCvlpdIconMapping.GetValueOrDefault($"{bldg.CivilopediaEntry}_AMERICAN_SMALL"),
+						largeIconTexture = pediaIcons.buildingToCvlpdIconMapping.GetValueOrDefault($"{bldg.CivilopediaEntry}_AMERICAN_LARGE"),
+					},
+				european = new SaveBuilding.IconTexture {
+						smallIconTexture = pediaIcons.buildingToCvlpdIconMapping.GetValueOrDefault($"{bldg.CivilopediaEntry}_EUROPEAN_SMALL"),
+						largeIconTexture = pediaIcons.buildingToCvlpdIconMapping.GetValueOrDefault($"{bldg.CivilopediaEntry}_EUROPEAN_LARGE"),
+					},
+				mediterranean = new SaveBuilding.IconTexture {
+						smallIconTexture = pediaIcons.buildingToCvlpdIconMapping.GetValueOrDefault($"{bldg.CivilopediaEntry}_MEDITERRANEAN_SMALL"),
+						largeIconTexture = pediaIcons.buildingToCvlpdIconMapping.GetValueOrDefault($"{bldg.CivilopediaEntry}_MEDITERRANEAN_LARGE"),
+					},
+				mideastern = new SaveBuilding.IconTexture {
+					smallIconTexture = pediaIcons.buildingToCvlpdIconMapping.GetValueOrDefault($"{bldg.CivilopediaEntry}_MIDEASTERN_SMALL"),
+					largeIconTexture = pediaIcons.buildingToCvlpdIconMapping.GetValueOrDefault($"{bldg.CivilopediaEntry}_MIDEASTERN_LARGE"),
+				},
+				asian = new SaveBuilding.IconTexture {
+					smallIconTexture = pediaIcons.buildingToCvlpdIconMapping.GetValueOrDefault($"{bldg.CivilopediaEntry}_ASIAN_SMALL"),
+					largeIconTexture = pediaIcons.buildingToCvlpdIconMapping.GetValueOrDefault($"{bldg.CivilopediaEntry}_ASIAN_LARGE"),
+				},
+			};
+		}
+
+		private void GetEraVariationTextures(SaveBuilding building, BLDG bldg)
+		{
+			building.eraVariationTextures = new SaveBuilding.EraVariationTexture {
+				ancient = new SaveBuilding.IconTexture {
+						smallIconTexture = pediaIcons.buildingToCvlpdIconMapping.GetValueOrDefault($"{bldg.CivilopediaEntry}_ANCIENT_SMALL"),
+						largeIconTexture = pediaIcons.buildingToCvlpdIconMapping.GetValueOrDefault($"{bldg.CivilopediaEntry}_ANCIENT_LARGE"),
+					},
+				middle = new SaveBuilding.IconTexture {
+						smallIconTexture = pediaIcons.buildingToCvlpdIconMapping.GetValueOrDefault($"{bldg.CivilopediaEntry}_MIDDLE_SMALL"),
+						largeIconTexture = pediaIcons.buildingToCvlpdIconMapping.GetValueOrDefault($"{bldg.CivilopediaEntry}_MIDDLE_LARGE"),
+					},
+				industrial = new SaveBuilding.IconTexture {
+						smallIconTexture = pediaIcons.buildingToCvlpdIconMapping.GetValueOrDefault($"{bldg.CivilopediaEntry}_INDUSTRIAL_SMALL"),
+						largeIconTexture = pediaIcons.buildingToCvlpdIconMapping.GetValueOrDefault($"{bldg.CivilopediaEntry}_INDUSTRIAL_LARGE"),
+					},
+				modern = new SaveBuilding.IconTexture {
+					smallIconTexture = pediaIcons.buildingToCvlpdIconMapping.GetValueOrDefault($"{bldg.CivilopediaEntry}_MODERN_SMALL"),
+					largeIconTexture = pediaIcons.buildingToCvlpdIconMapping.GetValueOrDefault($"{bldg.CivilopediaEntry}_MODERN_LARGE"),
+				},
+			};
 		}
 
 		private static IEnumerable<SaveBuilding.Flag> LoadBuildingFlags(BLDG bldg) {

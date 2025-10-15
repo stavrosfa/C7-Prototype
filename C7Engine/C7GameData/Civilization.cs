@@ -29,7 +29,7 @@ namespace C7GameData {
 			American = 0,
 			European = 1,
 			Mediterranean = 2,
-			MidEastern = 3,
+			Mideastern = 3,
 			Asian = 4,
 		}
 
@@ -103,26 +103,6 @@ namespace C7GameData {
 			}
 
 			return true;
-		}
-
-		public static string GetCultureGroupFromEnumValue(CultureGroup cultureGroup) {
-			if (cultureGroup == CultureGroup.American) {
-				return "american";
-			}
-			if (cultureGroup == CultureGroup.European) {
-				return "european";
-			}
-			if (cultureGroup == CultureGroup.Mediterranean) {
-				return "mediterranean";
-			}
-			if (cultureGroup == CultureGroup.MidEastern) {
-				return "midEastern";
-			}
-			if (cultureGroup == CultureGroup.Asian) {
-				return "asian";
-			}
-
-			throw new InvalidEnumArgumentException();
 		}
 	}
 

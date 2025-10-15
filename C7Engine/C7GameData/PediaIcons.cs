@@ -19,7 +19,7 @@ namespace C7GameData {
 		// the small icon used in the science advisor display.
 		private readonly Dictionary<string, string> techSmallIconMapping = new();
 
-		// A mapping from the all caps name of a race (BABYLON, GERMANS, 
+		// A mapping from the all caps name of a race (BABYLON, GERMANS,
 		// RUSSIAN, etc) to the art file with happy/neutral/mad images of the
 		// leader in each era, like `art\advisors\LZ_all.pcx`.
 		private readonly Dictionary<string, string> raceToArtMapping = new();
@@ -27,6 +27,12 @@ namespace C7GameData {
 		// A mapping from the building civilopedia name to the row within the
 		// building icon art file.
 		public readonly Dictionary<string, int> buildingToRowNumberMapping = new();
+
+		public readonly List<string> buildingNoVariations = new();
+		public readonly List<string> buildingEraVariations = new();
+		public readonly List<string> buildingCustureVariations = new();
+		public readonly Dictionary<string, string> buildingToCvlpdIconMapping = new();
+		public readonly Dictionary<string, string> unitToCvlpdIconMapping = new();
 
 		private readonly string pediaIconsPath;
 
@@ -67,7 +73,50 @@ namespace C7GameData {
 					// +2 because +1 specifies if the building has different
 					// columns for culture groups or by era. We don't try to
 					// support that yet.
-					buildingToRowNumberMapping[lines[i].Substring(6)] = Int32.Parse(lines[i + 2]);
+
+					string biqName = lines[i].Substring(6);
+
+					buildingToRowNumberMapping[biqName] = Int32.Parse(lines[i + 2]);
+
+					if (lines[i + 1].Trim() == "SINGLE" && i + 10 < lines.Length) {
+						buildingToCvlpdIconMapping[$"{biqName}_LARGE"] = lines[i + 3];
+						buildingToCvlpdIconMapping[$"{biqName}_SMALL"] = lines[i + 4];
+
+						buildingNoVariations.Add(biqName);
+					}
+					else if (lines[i + 1].Trim() == "ERA") {
+						buildingToCvlpdIconMapping[$"{biqName}_ANCIENT_LARGE"] = lines[i + 3];
+						buildingToCvlpdIconMapping[$"{biqName}_MIDDLE_LARGE"] = lines[i + 4];
+						buildingToCvlpdIconMapping[$"{biqName}_INDUSTRIAL_LARGE"] = lines[i + 5];
+						buildingToCvlpdIconMapping[$"{biqName}_MODERN_LARGE"] = lines[i + 6];
+						buildingToCvlpdIconMapping[$"{biqName}_ANCIENT_SMALL"] = lines[i + 7];
+						buildingToCvlpdIconMapping[$"{biqName}_MIDDLE_SMALL"] = lines[i + 8];
+						buildingToCvlpdIconMapping[$"{biqName}_INDUSTRIAL_SMALL"] = lines[i + 9];
+						buildingToCvlpdIconMapping[$"{biqName}_MODERN_SMALL"] = lines[i + 10];
+
+						buildingEraVariations.Add(biqName);
+					}
+					else if (lines[i + 1].Trim() == "CULTURE" && i + 12 < lines.Length) {
+						buildingToCvlpdIconMapping[$"{biqName}_AMERICAN_LARGE"] = lines[i + 3];
+						buildingToCvlpdIconMapping[$"{biqName}_EUROPEAN_LARGE"] = lines[i + 4];
+						buildingToCvlpdIconMapping[$"{biqName}_MEDITERRANEAN_LARGE"] = lines[i + 5];
+						buildingToCvlpdIconMapping[$"{biqName}_MIDEASTERN_LARGE"] = lines[i + 6];
+						buildingToCvlpdIconMapping[$"{biqName}_ASIAN_LARGE"] = lines[i + 7];
+						buildingToCvlpdIconMapping[$"{biqName}_AMERICAN_SMALL"] = lines[i + 8];
+						buildingToCvlpdIconMapping[$"{biqName}_EUROPEAN_SMALL"] = lines[i + 9];
+						buildingToCvlpdIconMapping[$"{biqName}_MEDITERRANEAN_SMALL"] = lines[i + 10];
+						buildingToCvlpdIconMapping[$"{biqName}_MIDEASTERN_SMALL"] = lines[i + 11];
+						buildingToCvlpdIconMapping[$"{biqName}_ASIAN_SMALL"] = lines[i + 12];
+
+						buildingCustureVariations.Add(biqName);
+					}
+				}
+
+				if (lines[i].StartsWith("#ICON_PRTO") && i + 2 < lines.Length) {
+					string biqName = lines[i].Substring(6);
+
+					unitToCvlpdIconMapping[$"{biqName}_LARGE"] = lines[i + 1];
+					unitToCvlpdIconMapping[$"{biqName}_SMALL"] = lines[i + 2];
 				}
 			}
 		}

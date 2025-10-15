@@ -72477,8 +72477,7 @@
       "iconRowIndex": 0,
       "flags": [
         "isCenterOfEmpire"
-      ],
-	  "hasCultureSpecificTextures": true
+      ]
     },
     {
       "name": "Barracks",
@@ -72490,7 +72489,6 @@
       "combatDefenseBonus": 0,
       "maintenanceCost": 1,
       "iconRowIndex": 1,
-      "hasEraSpecificTextures": true,
       "flags": [
         "veteranGroundUnits"
       ],
@@ -72512,7 +72510,6 @@
       "combatDefenseBonus": 0,
       "maintenanceCost": 1,
       "iconRowIndex": 2,
-      "hasEraSpecificTextures": true,
       "flags": [
         "doublesCityGrowthRate"
       ]
@@ -72530,8 +72527,7 @@
       "iconRowIndex": 3,
       "traits": [
         "religious"
-      ],
-	  "hasCultureSpecificTextures": true
+      ]
     },
     {
       "name": "Marketplace",
@@ -72592,7 +72588,6 @@
       "combatDefenseBonus": 0.5,
       "maintenanceCost": 0,
       "iconRowIndex": 7,
-      "hasCultureSpecificTextures": true,
       "flags": [
         "providesWalls",
         "canOnlyBeBuiltInTowns"
@@ -72637,7 +72632,6 @@
       "combatDefenseBonus": 0,
       "maintenanceCost": 1,
       "iconRowIndex": 9,
-      "hasEraSpecificTextures": true,
       "traits": [
         "commercial"
       ]
@@ -72656,8 +72650,7 @@
       "iconRowIndex": 10,
       "traits": [
         "religious"
-      ],
-	  "hasCultureSpecificTextures": true
+      ]
     },
     {
       "name": "University",
@@ -72671,7 +72664,6 @@
       "combatDefenseBonus": 0,
       "maintenanceCost": 2,
       "iconRowIndex": 11,
-      "hasEraSpecificTextures": true,
       "traits": [
         "scientific"
       ]
@@ -72686,8 +72678,7 @@
       "contentFacesInCity": 2,
       "combatDefenseBonus": 0,
       "maintenanceCost": 2,
-      "iconRowIndex": 12,
-      "hasEraSpecificTextures": true
+      "iconRowIndex": 12
     },
     {
       "name": "Factory",
@@ -72794,7 +72785,6 @@
       "combatDefenseBonus": 0,
       "maintenanceCost": 2,
       "iconRowIndex": 19,
-      "hasEraSpecificTextures": true,
       "flags": [
         "allowsCitySize3"
       ],
@@ -72862,7 +72852,6 @@
       "combatDefenseBonus": 0,
       "maintenanceCost": 0,
       "iconRowIndex": 23,
-      "hasCultureSpecificTextures": true,
       "flags": [
         "mustBeCoastal"
       ],
@@ -72961,7 +72950,6 @@
       "combatDefenseBonus": 0,
       "maintenanceCost": 2,
       "iconRowIndex": 27,
-      "hasEraSpecificTextures": true,
       "traits": [
         "militaristic",
         "commercial"
@@ -72978,7 +72966,6 @@
       "combatDefenseBonus": 0,
       "maintenanceCost": 2,
       "iconRowIndex": 28,
-      "hasEraSpecificTextures": true,
       "flags": [
         "reducesCorruption"
       ]

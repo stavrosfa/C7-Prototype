@@ -9,6 +9,8 @@ using Script = MoonSharp.Interpreter.Script;
 using MoonSharp.Interpreter.Loaders;
 using C7.Map;
 using C7GameData;
+using C7GameData.Save;
+using Serilog;
 
 public readonly record struct CropRegion(int LeftStart, int TopStart, int CroppedWidth, int CroppedHeight);
 
@@ -28,7 +30,7 @@ public readonly record struct CropRegion(int LeftStart, int TopStart, int Croppe
 ///    - Optional: "alpha_row_offset" (number) - Row offset for alpha blending
 ///    - Optional: "transparent_color_indexes" (table) - List of color indexes to treat as transparent
 ///    - Optional: "pure_alpha" - The pcx file only contains transparency information.
-/// 
+///
 ///    For c7 files:
 ///    - Optional: "hex_color" (string) - A 6 character hex string for a civ color
 ///
@@ -99,6 +101,11 @@ public static class TextureLoader {
 		// setup screen
 		UserData.RegisterType<C7GameData.Civilization>();
 
+		// UserData.RegisterType<Building>();
+		UserData.RegisterType<SaveBuilding.IconTexture>();
+		UserData.RegisterType<SaveBuilding.EraVariationTexture>();
+		UserData.RegisterType<SaveBuilding.CultureVariationTexture>();
+
 		// We need to register the "Type" type to be able to inspect
 		// the types of C# objects in the Lua code
 		UserData.RegisterType<Type>();
@@ -118,6 +125,7 @@ public static class TextureLoader {
 		};
 
 		string fullScriptPath = Path.Combine(configDir, configScript);
+		Log.Information(fullScriptPath);
 		DynValue res = lua.DoFile(fullScriptPath);
 		textureConfig = res.Table;
 	}
@@ -175,6 +183,33 @@ public static class TextureLoader {
 		return texture;
 	}
 
+	public static ImageTexture Load(string configKey, object[] obj, bool useCache = false) {
+		var cacheKey = (configKey, obj);
+
+		if (useCache && objectMappingCache.TryGetValue(cacheKey, out ImageTexture cachedTexture))
+			return cachedTexture;
+
+		object entry = GetEntryByPath(configKey);
+		if (entry is not Table table)
+			throw new Exception($"Table expected for key: {configKey}");
+
+		if (table["map_object_to_sprite"] is not Closure func)
+			throw new Exception("Custom mapping function expected");
+
+		DynValue tableDynValue = DynValue.FromObject(lua, table);
+		DynValue[] dynValues = obj.Select(o => DynValue.FromObject(lua, o)).ToArray();
+		DynValue[] allArgs = (new [] { tableDynValue }).Concat(dynValues).ToArray();
+
+		object result = func.Call(allArgs).ToObject();
+
+		ImageTexture texture = LoadFromLuaObject(result);
+
+		if (useCache)
+			objectMappingCache[cacheKey] = texture;
+
+		return texture;
+	}
+
 	// Allows to load the texture directly by its file path, bypassing the Lua config.
 	// Supports both PCX and PNG textures
 	public static ImageTexture LoadByPath(string path) {
@@ -210,7 +245,7 @@ public static class TextureLoader {
 	}
 
 	/// Gets a color given a "civ index".
-	/// 
+	///
 	/// This exists in the TextureLoader because civ3 implements civ colors
 	/// as 1x1 pixel pcx files.
 	public static Color LoadColor(int civIndex) {
@@ -390,6 +425,7 @@ public static class TextureLoader {
 			if (current is Table table && table[part] != null) {
 				current = table[part];
 			} else {
+				Log.Error($"Unknown {current} for {configKey}");
 				return null;
 			}
 		}

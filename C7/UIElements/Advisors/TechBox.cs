@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using C7Engine;
 using C7GameData;
 using Godot;
+using Serilog;
 using static C7GameData.EraHelper;
 
 public partial class TechBox : TextureButton {
@@ -215,7 +216,9 @@ public partial class TechBox : TextureButton {
 
 		// Units
 		foreach (UnitPrototype unit in Units[tech.id]) {
-			textures.Add(TextureLoader.Load($"civilopedia_units.{FormatStringForLuaEntry(unit.name)}.small")); // original and only
+			// textures.Add(TextureLoader.Load($"civilopedia_units.{FormatStringForLuaEntry(unit.name)}.small")); // original and only
+			// ImageTexture texture = TextureLoader.Load($"civilopedia_icons.small", unit, useCache: true);
+			// textures.Add(texture);
 		}
 
 		// Buildings
@@ -223,12 +226,21 @@ public partial class TechBox : TextureButton {
 			string era = "";
 			string cultrureGroup = "";
 
-			if (building.hasCultureSpecificTextures)
-				cultrureGroup = $"{Civilization.GetCultureGroupFromEnumValue(EngineStorage.gameData.GetFirstHumanPlayer().civilization.cultureGroup)}.";
-			if (building.hasEraSpecificTextures)
-				era = $"{CalculateTechEraTexture(EraIndexToEra(EngineStorage.gameData.GetFirstHumanPlayer().EraIndex()))}.";
-
-			textures.Add(TextureLoader.Load($"civilopedia_buildings.{FormatStringForLuaEntry(building.name)}.{era}{cultrureGroup}small"));
+			if (building.cultureVariationTextures != null) {
+				cultrureGroup = $"{EngineStorage.gameData.GetFirstHumanPlayer().civilization.cultureGroup}";
+				ImageTexture texture = TextureLoader.Load($"civilopedia_icons.data", ["small", building, cultrureGroup], useCache: true);
+				textures.Add(texture);
+			}
+			else if (building.eraVariationTextures != null) {
+				era = $"{CalculateTechEraTexture(EraIndexToEra(EngineStorage.gameData.GetFirstHumanPlayer().EraIndex()))}";
+				// era = $"{EraIndexToEra(EngineStorage.gameData.GetFirstHumanPlayer().EraIndex())}";
+				ImageTexture texture = TextureLoader.Load($"civilopedia_icons.data", ["small", building, era], useCache: true);
+				textures.Add(texture);
+			}
+			else if (building.iconTextures != null) {
+				ImageTexture texture = TextureLoader.Load($"civilopedia_icons.data", ["small", building], useCache: true);
+				textures.Add(texture);
+			}
 		}
 
 		// Terraforms
@@ -241,7 +253,8 @@ public partial class TechBox : TextureButton {
 			if (cachedObsoleteBuildingTextures.TryGetValue(building.name, out ImageTexture texture)) {
 				textures.Add(texture);
 			} else {
-				Image rawImage = TextureLoader.Load($"civilopedia_buildings.{FormatStringForLuaEntry(building.name)}.small").GetImage();
+				// Image rawImage = TextureLoader.Load($"civilopedia_buildings.{FormatStringForLuaEntry(building.name)}.small").GetImage();
+				Image rawImage = TextureLoader.Load($"civilopedia_icons.data", ["small", building], useCache: true).GetImage();
 				Image xMarkedImage = DrawXOnImage(rawImage, new Color(1, 0, 0), 1);
 				ImageTexture obsoleteBuilding = ImageTexture.CreateFromImage(xMarkedImage);
 				cachedObsoleteBuildingTextures.TryAdd(building.name, obsoleteBuilding);
@@ -327,7 +340,8 @@ public partial class TechBox : TextureButton {
 	}
 
 	private string CostToStringKey(int cost) {
-		if (cost > 4) {
+		// at best the large container fits 6 items
+		if (cost is > 4 and <= 6) {
 			return "large";
 		} else if (cost > 3) {
 			return "long";

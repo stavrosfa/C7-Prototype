@@ -61,10 +61,14 @@ namespace C7GameData.Save {
 			capital = city.capital;
 			location = new TileLocation(city.location);
 			name = city.name;
-			producible = city.itemBeingProduced.name;
+			// null pointer check because when importing a SAV file and city produces Wealth,
+			// it's not yet handled and crashes on further save attempt
+			producible = city.itemBeingProduced?.name;
+			// default option as building, again, because of Wealth production
 			producibleType = city.itemBeingProduced switch {
 				UnitPrototype => ProducibleType.UNIT,
 				Building => ProducibleType.BUILDING,
+				_ => ProducibleType.BUILDING,
 			};
 			shieldsStored = city.shieldsStored;
 			foodStored = city.foodStored;

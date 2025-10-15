@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 
 namespace C7GameData.Save {
 	public class SaveBuilding {
@@ -29,6 +30,25 @@ namespace C7GameData.Save {
 			public string buildingGainedInEveryCityOnContinent;
 		}
 
+		public class IconTexture {
+			public string smallIconTexture;
+			public string largeIconTexture;
+		}
+
+		public class CultureVariationTexture {
+			public IconTexture american;
+			public IconTexture european;
+			public IconTexture mediterranean;
+			public IconTexture mideastern;
+			public IconTexture asian;
+		}
+		public class EraVariationTexture {
+			public IconTexture ancient;
+			public IconTexture middle;
+			public IconTexture industrial;
+			public IconTexture modern;
+		}
+
 		public string name;
 		public int shieldCost;
 		public int populationCost;
@@ -42,6 +62,13 @@ namespace C7GameData.Save {
 		public int maintenanceCost;
 		public int iconRowIndex;
 		public ID? renderedObsoleteBy;
+
+		[JsonIgnore]
+		public IconTexture iconTextures;
+		[JsonIgnore]
+		public CultureVariationTexture cultureVariationTextures;
+		[JsonIgnore]
+		public EraVariationTexture eraVariationTextures;
 
 		// Assorted boolean flags for the building. They're stored in this set
 		// rather than as booleans to avoid bloating the json file.
@@ -57,9 +84,6 @@ namespace C7GameData.Save {
 		public SortedSet<string> onFinishedUnitProduction = [];
 		public SortedSet<string> productionPrerequisites = [];
 		public SortedSet<string> tileModifiers = [];
-
-		public bool hasCultureSpecificTextures;
-		public bool hasEraSpecificTextures;
 
 		public SaveBuilding() { }
 	}
